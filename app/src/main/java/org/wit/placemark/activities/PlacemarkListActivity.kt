@@ -24,6 +24,7 @@ class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
         setContentView(binding.root)
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
+
         app = application as MainApp
 
         val layoutManager = LinearLayoutManager(this)
@@ -50,5 +51,10 @@ class PlacemarkListActivity : AppCompatActivity(), PlacemarkListener {
         val launcherIntent = Intent(this, PlacemarkActivity::class.java)
         launcherIntent.putExtra("placemark_edit", placemark)
         startActivityForResult(launcherIntent,0)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        binding.recyclerView.adapter?.notifyDataSetChanged()
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }
